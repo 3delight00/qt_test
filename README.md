@@ -1,6 +1,6 @@
 # qt_test
 
-Git GUI
+Git Bash
 ----
 1. 추가하려는 폴더 우클릭 git bash 
 2. Git init
