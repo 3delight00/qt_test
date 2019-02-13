@@ -20,6 +20,8 @@ private slots:
 
     void on_actionOpen_stl_file_triggered();
 
+    void on_pushButton_View_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

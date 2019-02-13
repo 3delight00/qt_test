@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>702</width>
-    <height>661</height>
+    <width>884</width>
+    <height>595</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,23 +17,160 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: skyblue;
-
-font : bold 14px;
-min-width : 0.5em;
-padding : 6px;
-</string>
+   <string notr="true"/>
   </property>
   <property name="animated">
    <bool>true</bool>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QPushButton" name="pushButton">
-      <property name="text">
-       <string>test</string>
+     <widget class="QFrame" name="frame">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
+      <property name="maximumSize">
+       <size>
+        <width>90</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QWidget" name="">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>30</y>
+         <width>77</width>
+         <height>170</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QPushButton" name="pushButton_View">
+          <property name="text">
+           <string>View</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="text">
+           <string>Rotate</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="text">
+           <string>Scale</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_4">
+          <property name="text">
+           <string>Move</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_5">
+          <property name="text">
+           <string>Silice</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_6">
+          <property name="text">
+           <string>PushButton</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="maximumSize">
+       <size>
+        <width>283</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Printing Setting</string>
+       </attribute>
+       <widget class="QWidget" name="">
+        <property name="geometry">
+         <rect>
+          <x>12</x>
+          <y>40</y>
+          <width>258</width>
+          <height>32</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Layer thickness(mm) :</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit">
+           <property name="maximumSize">
+            <size>
+             <width>120</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <attribute name="title">
+        <string>Supporter</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="tab_3">
+       <attribute name="title">
+        <string>Printing Area</string>
+       </attribute>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -46,15 +183,7 @@ padding : 6px;
     </sizepolicy>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color : skyblue;
-border-style : outset;
-border-width : 0.5px;
-border-radius : 5px;
-border-color : white;
-font : bold 14px;
-min-width : 0.5em;
-padding : 6px;
-</string>
+    <string notr="true"/>
    </property>
    <property name="movable">
     <bool>false</bool>
@@ -89,8 +218,8 @@ padding : 6px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>702</width>
-     <height>37</height>
+     <width>884</width>
+     <height>21</height>
     </rect>
    </property>
    <property name="sizePolicy">
@@ -100,13 +229,7 @@ padding : 6px;
     </sizepolicy>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color : skyblue;
-border-width : 2px;
-border-color : white;
-font : bold 14px;
-min-width : 0.5em;
-padding : 6px;
-</string>
+    <string notr="true"/>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
@@ -144,6 +267,9 @@ padding : 6px;
    <property name="statusTip">
     <string/>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="actionCreate_Support">
    <property name="text">
@@ -152,15 +278,24 @@ padding : 6px;
    <property name="iconText">
     <string>Support</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+C</string>
+   </property>
   </action>
   <action name="actionReScale">
    <property name="text">
     <string>ReScale</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+R</string>
+   </property>
   </action>
   <action name="actionSliecing">
    <property name="text">
     <string>Slicing</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
    </property>
   </action>
  </widget>
