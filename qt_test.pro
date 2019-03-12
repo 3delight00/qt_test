@@ -8,6 +8,8 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+INCLUDEPATH +="framelesswindow"
+
 TARGET = qt_test
 TEMPLATE = app
 
@@ -27,17 +29,28 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    viewform.cpp
+    viewform.cpp \
+    DarkStyle.cpp \
+    framelesswindow/framelesswindow.cpp \
+    framelesswindow/windowdragger.cpp
 
 HEADERS += \
         mainwindow.h \
-    viewform.h
+    viewform.h \
+    DarkStyle.h \
+    framelesswindow/framelesswindow.h \
+    framelesswindow/windowdragger.h \
 
 FORMS += \
         mainwindow.ui \
-    viewform.ui
+    viewform.ui \
+    framelesswindow/framelesswindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    darkstyle.qrc \
+    framelesswindow.qrc
