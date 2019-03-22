@@ -15,6 +15,9 @@ public:
     explicit ViewForm(QWidget *parent = nullptr);
     ~ViewForm();
 
+private slots:
+    void on_pushButton_Close_clicked();
+
 private:
     Ui::ViewForm *ui;
 };

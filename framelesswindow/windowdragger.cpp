@@ -12,14 +12,18 @@
 */
 
 #include "framelesswindow/windowdragger.h"
+#include "framelesswindow/framelesswindow.h"
 #include <QPainter>
 #include <QStyleOption>
+#include <QApplication>
+#include <QWindow>
 
 WindowDragger::WindowDragger(QWidget *parent) : QWidget(parent) {
   mousePressed = false;
 }
 
 void WindowDragger::mousePressEvent(QMouseEvent *event) {
+
   mousePressed = true;
   mousePos = event->globalPos();
 
@@ -31,8 +35,11 @@ void WindowDragger::mousePressEvent(QMouseEvent *event) {
 
 void WindowDragger::mouseMoveEvent(QMouseEvent *event) {
   QWidget *parent = parentWidget();
+  //parent is windowtitlebar
   if (parent) parent = parent->parentWidget();
-
+  //parent is framelesswindow
+  if(parent->isMaximized())
+      return;
   if (parent && mousePressed)
     parent->move(wndPos + (event->globalPos() - mousePos));
 }

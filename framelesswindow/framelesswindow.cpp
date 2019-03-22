@@ -62,23 +62,44 @@ FramelessWindow::FramelessWindow(QWidget *parent)
 
 FramelessWindow::~FramelessWindow() { delete ui; }
 
-void FramelessWindow::on_restoreButton_clicked() {
+ void FramelessWindow::on_restoreButton_clicked() {
   ui->restoreButton->setVisible(false);
-
   ui->maximizeButton->setVisible(true);
+  //get before size and
+  QRect rec = m_StartGeometry;
+  setGeometry(rec.x(), rec.y(), rec.width()+1,rec.height()+1);
   setWindowState(Qt::WindowNoState);
-  // on MacOS this hack makes sure the
-  // background window is repaint correctly
-  hide();
-  show();
+   //on MacOS this hack makes sure the
+   //background window is repaint correctly
+//    hide();
+//    show();
 }
 
 void FramelessWindow::on_maximizeButton_clicked() {
-  ui->restoreButton->setVisible(true);
-  ui->maximizeButton->setVisible(false);
-  this->setWindowState(Qt::WindowMaximized);
-  this->showMaximized();
-  styleWindow(true, false);
+    ui->restoreButton->setVisible(true);
+    ui->maximizeButton->setVisible(false);
+    //save curent window x1,x2,y1,y2
+    m_StartGeometry = geometry();
+    //get "window max size"
+    QRect rec = QApplication::desktop()->availableGeometry();
+    //get curent cursor postion
+    QPoint globalCursorPos = QCursor::pos();
+    int x = rec.x();
+    int y = rec.y();
+    //check where window maximize
+    if(globalCursorPos.x() > rec.right())
+    {
+        x = (rec.right()+1)%globalCursorPos.x();
+    }
+    if(globalCursorPos.y() > rec.bottom())
+    {
+        y = (rec.bottom()+1)%globalCursorPos.y();
+    }
+    setGeometry(x,y,rec.width()+1,rec.height()+1);
+    setWindowState(Qt::WindowMaximized);
+
+    styleWindow(false, false);
+
 }
 
 void FramelessWindow::changeEvent(QEvent *event) {
@@ -99,8 +120,9 @@ void FramelessWindow::changeEvent(QEvent *event) {
 }
 
 void FramelessWindow::setContent(QWidget *w) {
-  ui->windowContent->layout()->addWidget(w);
+    ui->windowContent->layout()->addWidget(w);
 }
+
 
 void FramelessWindow::setWindowTitle(const QString &text) {
   ui->titleText->setText(text);
@@ -191,17 +213,18 @@ void FramelessWindow::on_applicationStateChanged(Qt::ApplicationState state) {
 }
 
 void FramelessWindow::on_minimizeButton_clicked() {
-  setWindowState(Qt::WindowMinimized);
+    setWindowState(Qt::WindowMinimized);
 }
 
 void FramelessWindow::on_closeButton_clicked() { close(); }
 
 void FramelessWindow::on_windowTitlebar_doubleClicked() {
-  if (windowState().testFlag(Qt::WindowNoState)) {
-    on_maximizeButton_clicked();
-  } else if (windowState().testFlag(Qt::WindowMaximized)) {
-    on_restoreButton_clicked();
-  }
+      if (windowState().testFlag(Qt::WindowNoState)) {
+        on_maximizeButton_clicked();
+      } else if (windowState().testFlag(Qt::WindowMaximized)) {
+        //on_minimizeButton_clicked();
+        on_restoreButton_clicked();
+      }
 }
 
 void FramelessWindow::mouseDoubleClickEvent(QMouseEvent *event) {
@@ -387,7 +410,6 @@ void FramelessWindow::mousePressEvent(QMouseEvent *event) {
   if (isMaximized()) {
     return;
   }
-
   m_bMousePressed = true;
   m_StartGeometry = this->geometry();
 

@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "viewform.h"
 
 namespace Ui {
 class MainWindow;
@@ -16,7 +17,6 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
 
     void on_actionOpen_stl_file_triggered();
 
@@ -24,6 +24,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    ViewForm *viewform;
 };
 
 #endif // MAINWINDOW_H

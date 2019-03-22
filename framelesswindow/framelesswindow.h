@@ -48,6 +48,7 @@ class FramelessWindow : public QWidget {
   void on_windowTitlebar_doubleClicked();
 
 
+
 protected:
   virtual void changeEvent(QEvent *event);
   virtual void mouseDoubleClickEvent(QMouseEvent *event);

@@ -9,9 +9,12 @@ QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 INCLUDEPATH +="framelesswindow"
-
-TARGET = qt_test
+#Execution Name
+TARGET = qt_test2
 TEMPLATE = app
+
+#Execution icon
+RC_FILE = 3delight-icon.rc
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -54,3 +57,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     darkstyle.qrc \
     framelesswindow.qrc
+
+DISTFILES += \
+    3delight.ico
