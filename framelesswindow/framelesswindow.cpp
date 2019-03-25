@@ -62,44 +62,23 @@ FramelessWindow::FramelessWindow(QWidget *parent)
 
 FramelessWindow::~FramelessWindow() { delete ui; }
 
- void FramelessWindow::on_restoreButton_clicked() {
+void FramelessWindow::on_restoreButton_clicked() {
   ui->restoreButton->setVisible(false);
+
   ui->maximizeButton->setVisible(true);
-  //get before size and
-  QRect rec = m_StartGeometry;
-  setGeometry(rec.x(), rec.y(), rec.width()+1,rec.height()+1);
   setWindowState(Qt::WindowNoState);
-   //on MacOS this hack makes sure the
-   //background window is repaint correctly
-//    hide();
-//    show();
+  // on MacOS this hack makes sure the
+  // background window is repaint correctly
+  hide();
+  show();
 }
 
 void FramelessWindow::on_maximizeButton_clicked() {
-    ui->restoreButton->setVisible(true);
-    ui->maximizeButton->setVisible(false);
-    //save curent window x1,x2,y1,y2
-    m_StartGeometry = geometry();
-    //get "window max size"
-    QRect rec = QApplication::desktop()->availableGeometry();
-    //get curent cursor postion
-    QPoint globalCursorPos = QCursor::pos();
-    int x = rec.x();
-    int y = rec.y();
-    //check where window maximize
-    if(globalCursorPos.x() > rec.right())
-    {
-        x = (rec.right()+1)%globalCursorPos.x();
-    }
-    if(globalCursorPos.y() > rec.bottom())
-    {
-        y = (rec.bottom()+1)%globalCursorPos.y();
-    }
-    setGeometry(x,y,rec.width()+1,rec.height()+1);
-    setWindowState(Qt::WindowMaximized);
-
-    styleWindow(false, false);
-
+  ui->restoreButton->setVisible(true);
+  ui->maximizeButton->setVisible(false);
+  this->setWindowState(Qt::WindowMaximized);
+  this->showMaximized();
+  styleWindow(true, false);
 }
 
 void FramelessWindow::changeEvent(QEvent *event) {
@@ -120,9 +99,8 @@ void FramelessWindow::changeEvent(QEvent *event) {
 }
 
 void FramelessWindow::setContent(QWidget *w) {
-    ui->windowContent->layout()->addWidget(w);
+  ui->windowContent->layout()->addWidget(w);
 }
-
 
 void FramelessWindow::setWindowTitle(const QString &text) {
   ui->titleText->setText(text);
@@ -213,18 +191,17 @@ void FramelessWindow::on_applicationStateChanged(Qt::ApplicationState state) {
 }
 
 void FramelessWindow::on_minimizeButton_clicked() {
-    setWindowState(Qt::WindowMinimized);
+  setWindowState(Qt::WindowMinimized);
 }
 
 void FramelessWindow::on_closeButton_clicked() { close(); }
 
 void FramelessWindow::on_windowTitlebar_doubleClicked() {
-      if (windowState().testFlag(Qt::WindowNoState)) {
-        on_maximizeButton_clicked();
-      } else if (windowState().testFlag(Qt::WindowMaximized)) {
-        //on_minimizeButton_clicked();
-        on_restoreButton_clicked();
-      }
+  if (windowState().testFlag(Qt::WindowNoState)) {
+    on_maximizeButton_clicked();
+  } else if (windowState().testFlag(Qt::WindowFullScreen)) {
+    on_restoreButton_clicked();
+  }
 }
 
 void FramelessWindow::mouseDoubleClickEvent(QMouseEvent *event) {
@@ -250,7 +227,8 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
 
     // top right corner
     if (m_bDragTop && m_bDragRight) {
-      int diff =globalMousePos.x() - (m_StartGeometry.x() + m_StartGeometry.width());
+      int diff =
+          globalMousePos.x() - (m_StartGeometry.x() + m_StartGeometry.width());
       int neww = m_StartGeometry.width() + diff;
       diff = globalMousePos.y() - m_StartGeometry.y();
       int newy = m_StartGeometry.y() + diff;
@@ -264,10 +242,10 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
     }
     // top left corner
     else if (m_bDragTop && m_bDragLeft) {
-      int diff = globalMousePos.x() - m_StartGeometry.x();
-      int newx = m_StartGeometry.x() + diff;
-      diff = globalMousePos.y() - m_StartGeometry.y();
+      int diff = globalMousePos.y() - m_StartGeometry.y();
       int newy = m_StartGeometry.y() + diff;
+      diff = globalMousePos.x() - m_StartGeometry.x();
+      int newx = m_StartGeometry.x() + diff;
       if (newy > 0 && newx > 0) {
         QRect newg = m_StartGeometry;
         newg.setY(newy);
@@ -276,7 +254,7 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
       }
     }
     // bottom left corner
-     else if (m_bDragBottom && m_bDragLeft) {
+    else if (m_bDragBottom && m_bDragLeft) {
       int diff = globalMousePos.x() - m_StartGeometry.x();
       int newx = m_StartGeometry.x() + diff;
       diff =globalMousePos.y() - (m_StartGeometry.y() + m_StartGeometry.height());
@@ -301,8 +279,8 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
             setGeometry(newg);
 
         }
-
-    } else if (m_bDragTop) {
+    }
+    else if (m_bDragTop) {
       int diff = globalMousePos.y() - m_StartGeometry.y();
       int newy = m_StartGeometry.y() + diff;
       if (newy > 0 && newy < h - 50) {
@@ -345,13 +323,11 @@ void FramelessWindow::checkBorderDragging(QMouseEvent *event) {
       setCursor(Qt::SizeFDiagCursor);
     } else if (rightBorderHit(globalMousePos) && topBorderHit(globalMousePos)) {
       setCursor(Qt::SizeBDiagCursor);
-    } else if (leftBorderHit(globalMousePos) &&
-               bottomBorderHit(globalMousePos)) {
+    } else if (leftBorderHit(globalMousePos) && bottomBorderHit(globalMousePos)) {
       setCursor(Qt::SizeBDiagCursor);
-    } else if (rightBorderHit(globalMousePos) &&
-               bottomBorderHit(globalMousePos)) {
-      setCursor(Qt::SizeFDiagCursor);
-    } else {
+    }else if (rightBorderHit(globalMousePos) && bottomBorderHit(globalMousePos)) {
+        setCursor(Qt::SizeFDiagCursor);
+    }else {
       if (topBorderHit(globalMousePos)) {
         setCursor(Qt::SizeVerCursor);
       } else if (leftBorderHit(globalMousePos)) {
@@ -410,6 +386,7 @@ void FramelessWindow::mousePressEvent(QMouseEvent *event) {
   if (isMaximized()) {
     return;
   }
+
   m_bMousePressed = true;
   m_StartGeometry = this->geometry();
 
@@ -431,8 +408,7 @@ void FramelessWindow::mousePressEvent(QMouseEvent *event) {
       m_bDragRight = true;
       m_bDragBottom = true;
       setCursor(Qt::SizeFDiagCursor);
-  }
-  else {
+  }else {
     if (topBorderHit(globalMousePos)) {
       m_bDragTop = true;
       setCursor(Qt::SizeVerCursor);
@@ -496,4 +472,3 @@ bool FramelessWindow::eventFilter(QObject *obj, QEvent *event) {
 
   return QWidget::eventFilter(obj, event);
 }
-

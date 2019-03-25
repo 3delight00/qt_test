@@ -2,7 +2,6 @@
 #include "DarkStyle.h"
 #include "framelesswindow/framelesswindow.h"
 #include "mainwindow.h"
-#include <QIcon>
 
 int main(int argc, char *argv[]) {
   QApplication a(argc, argv);
@@ -18,6 +17,7 @@ int main(int argc, char *argv[]) {
 
   // create our mainwindow instance
   MainWindow *mainWindow = new MainWindow;
+
   // add the mainwindow to our custom frameless window
   framelessWindow.setContent(mainWindow);
   framelessWindow.show();
