@@ -33,6 +33,8 @@ void WindowDragger::mouseMoveEvent(QMouseEvent *event) {
   QWidget *parent = parentWidget();
     //parent is windowtitlebar
     if (parent) parent = parent->parentWidget();
+    //parent is framelesswindow
+    if(parent->isMaximized()) return;
     if (parent && mousePressed)
       parent->move(wndPos + (event->globalPos() - mousePos));
 }

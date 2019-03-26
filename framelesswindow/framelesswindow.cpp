@@ -69,8 +69,8 @@ void FramelessWindow::on_restoreButton_clicked() {
   setWindowState(Qt::WindowNoState);
   // on MacOS this hack makes sure the
   // background window is repaint correctly
-  hide();
-  show();
+//  hide();
+//  show();
 }
 
 void FramelessWindow::on_maximizeButton_clicked() {
@@ -199,7 +199,7 @@ void FramelessWindow::on_closeButton_clicked() { close(); }
 void FramelessWindow::on_windowTitlebar_doubleClicked() {
   if (windowState().testFlag(Qt::WindowNoState)) {
     on_maximizeButton_clicked();
-  } else if (windowState().testFlag(Qt::WindowFullScreen)) {
+  } else if (windowState().testFlag(Qt::WindowMaximized)) {
     on_restoreButton_clicked();
   }
 }
